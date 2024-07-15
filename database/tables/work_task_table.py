@@ -42,4 +42,27 @@ class WorkTaskTable(BaseTable):
         self.connection.commit()
 
     def fetch_all_data(self):
-        pass
+        query = '''
+               SELECT task.Id,
+                      task.Title,
+                      task.StartTime,
+                      task.EndTime,
+                      form.Id AS FormId,
+                      staff.LastName || ' ' || staff.FirstName || ' ' || staff.MiddleName AS StaffName,
+                      worker.LastName || ' ' || worker.FirstName || ' ' || worker.MiddleName AS WorkerName,
+                      room_class.Class AS RoomClass,
+                      form.Place AS Place,
+                      work_type.Name_work,
+                      work_status.Name_status,
+                      form.Notice
+               FROM task
+               JOIN form ON task.id_form = form.Id
+               JOIN staff ON form.id_staff = staff.Id
+               JOIN worker ON form.id_worker = worker.Id
+               JOIN room_class ON form.id_class = room_class.Id
+               JOIN work_type ON form.id_work_type = work_type.Id
+               JOIN work_status ON form.id_work_status = work_status.Id
+               '''
+        cursor = self.connection.cursor()
+        cursor.execute(query)
+        return cursor.fetchall()

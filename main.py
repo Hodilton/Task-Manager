@@ -46,9 +46,15 @@ if __name__ == '__main__':
             },
 
             'display_5': {
-                'name': 'Заявки',
+                'name': 'Формы',
                 'module': 'application.displays.form_display',
                 'class_name': 'FormDisplay'
+            },
+
+            'display_6': {
+                'name': 'Заявки',
+                'module': 'application.displays.task_display',
+                'class_name': 'WorkTaskDisplay'
             }
         }
     }
