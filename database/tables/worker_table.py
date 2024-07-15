@@ -18,7 +18,7 @@ class WorkerTable(BaseTable):
 
     def insert_data(self, data):
         query = '''
-         INSERT INTO worker (LastName, FirstName, MiddleName, id_staff_post)
+         INSERT INTO worker (LastName, FirstName, MiddleName, id_worker_post)
          VALUES (?, ?, ?, ?)
          '''
         self.connection.execute(query, data)
@@ -27,7 +27,7 @@ class WorkerTable(BaseTable):
     def update_data(self, id, data):
         query = '''
          UPDATE worker
-         SET LastName = ?, FirstName = ?, MiddleName = ?, id_staff_post = ?
+         SET LastName = ?, FirstName = ?, MiddleName = ?, id_worker_post = ?
          WHERE Id = ?
          '''
         self.connection.execute(query, (*data, id))
@@ -42,4 +42,11 @@ class WorkerTable(BaseTable):
         self.connection.commit()
 
     def fetch_all_data(self):
-        pass
+        query = '''
+               SELECT worker.Id, LastName, FirstName, MiddleName, NamePost 
+               FROM worker 
+               JOIN worker_post ON worker.id_worker_post = worker_post.Id
+               '''
+        cursor = self.connection.cursor()
+        cursor.execute(query)
+        return cursor.fetchall()

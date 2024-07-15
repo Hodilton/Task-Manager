@@ -37,4 +37,9 @@ class WorkerPostTable(BaseTable):
         self.connection.commit()
 
     def fetch_all_data(self):
-        pass
+        query = '''
+            SELECT Id, NamePost FROM worker_post
+            '''
+        cursor = self.connection.cursor()
+        cursor.execute(query)
+        return cursor.fetchall()
