@@ -33,6 +33,7 @@ class DatabaseManager:
                 module = importlib.import_module(module_name)
                 table_class = getattr(module, class_name)
                 self.tables[table_name] = {'class': table_class}
+
             except (ValueError, ImportError, AttributeError) as e:
                 print(f"Error loading table {table_name}: {e}")
 
