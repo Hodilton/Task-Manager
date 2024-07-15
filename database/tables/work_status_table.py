@@ -37,4 +37,10 @@ class WorkStatusTable(BaseTable):
         self.connection.commit()
 
     def fetch_all_data(self):
-        pass
+        query = '''
+        SELECT Id, Name_status 
+        FROM work_status
+        '''
+        cursor = self.connection.cursor()
+        cursor.execute(query)
+        return cursor.fetchall()

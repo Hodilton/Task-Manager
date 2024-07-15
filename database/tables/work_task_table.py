@@ -1,7 +1,7 @@
 # database/task_table.py
 from .base_table import BaseTable
 
-class TaskTable(BaseTable):
+class WorkTaskTable(BaseTable):
     def create_table(self):
         query = '''
         CREATE TABLE IF NOT EXISTS task (

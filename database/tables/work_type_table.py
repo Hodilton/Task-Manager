@@ -37,4 +37,10 @@ class WorkTypeTable(BaseTable):
         self.connection.commit()
 
     def fetch_all_data(self):
-        pass
+        query = '''
+        SELECT Id, Name_work 
+        FROM work_type
+        '''
+        cursor = self.connection.cursor()
+        cursor.execute(query)
+        return cursor.fetchall()

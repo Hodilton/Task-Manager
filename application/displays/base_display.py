@@ -50,3 +50,6 @@ class BaseDisplay:
 
     def update_listbox(self):
         self.listbox.delete(0, tk.END)
+
+    def update_combobox(self):
+        pass

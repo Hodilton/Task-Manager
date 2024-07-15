@@ -48,3 +48,4 @@ class WorkerPostDisplay(BaseDisplay):
         for row in data:
             display_string = f"{row[0]}: {row[1]}"
             self.listbox.insert(tk.END, display_string)
+

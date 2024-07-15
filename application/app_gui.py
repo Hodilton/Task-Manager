@@ -58,6 +58,8 @@ class ApplicationGUI:
         self.hide_all_displays()
         self.current_display = self.display_instances[display_key]
         self.current_display.show()
+        self.current_display.update_combobox()
+        self.current_display.update_listbox()
 
     def hide_all_displays(self):
         for display in self.display_instances.values():
