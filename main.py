@@ -3,23 +3,38 @@ from database.db_manager import DatabaseManager
 
 if __name__ == '__main__':
     config = {
-        'db_path': 'data/my_database2.db',
+        'db_path': 'data/my_database1.db',
 
         'tables': {
             'staff_post': 'database.tables.staff_post_table.StaffPostTable',
-            'staff': 'database.tables.staff_table.StaffTable'
+            'staff': 'database.tables.staff_table.StaffTable',
+            'worker_post': 'database.tables.worker_post_table.WorkerPostTable',
+            'worker': 'database.tables.worker_table.WorkerTable'
         },
 
         'displays': {
             'display_1': {
-                'name': 'Display 1',
+                'name': 'Сотруднкики - Должности',
                 'module': 'application.displays.staff_post_display',
                 'class_name': 'StaffPostDisplay'
             },
+
             'display_2': {
-                'name': 'Display 2',
+                'name': 'Сотрудники',
                 'module': 'application.displays.staff_display',
                 'class_name': 'StaffDisplay'
+            },
+
+            'display_3': {
+                'name': 'Работники - Должности',
+                'module': 'application.displays.worker_post_display',
+                'class_name': 'WorkerPostDisplay'
+            },
+
+            'display_4': {
+                'name': 'Работники',
+                'module': 'application.displays.worker_display',
+                'class_name': 'WorkerDisplay'
             }
         }
     }
