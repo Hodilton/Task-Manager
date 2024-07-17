@@ -13,25 +13,21 @@ class WorkTaskDisplay(BaseDisplay):
         self.create_entries()
 
     def create_entries(self):
-        # Title
         self.title_label = tk.Label(self.bottom_frame, text="Заголовок")
         self.title_label.grid(row=1, column=0, padx=5, pady=5, sticky='w')
         self.title_entry = tk.Entry(self.bottom_frame, width=40)
         self.title_entry.grid(row=2, column=0, columnspan=2, padx=5, pady=5, sticky='w')
 
-        # Start Time
         self.start_time_label = tk.Label(self.bottom_frame, text="Начальное время")
         self.start_time_label.grid(row=3, column=0, padx=5, pady=5, sticky='w')
         self.start_time_entry = tk.Entry(self.bottom_frame, width=40)
         self.start_time_entry.grid(row=4, column=0, columnspan=2, padx=5, pady=5, sticky='w')
 
-        # End Time
         self.end_time_label = tk.Label(self.bottom_frame, text="Конечное время")
         self.end_time_label.grid(row=5, column=0, padx=5, pady=5, sticky='w')
         self.end_time_entry = tk.Entry(self.bottom_frame, width=40)
         self.end_time_entry.grid(row=6, column=0, columnspan=2, padx=5, pady=5, sticky='w')
 
-        # Form Combobox
         self.form_label = tk.Label(self.bottom_frame, text="Форма")
         self.form_label.grid(row=7, column=0, padx=5, pady=5, sticky='w')
         self.form_combobox = ttk.Combobox(self.bottom_frame, state="readonly", width=37)
@@ -40,7 +36,6 @@ class WorkTaskDisplay(BaseDisplay):
         self.update_combobox()
 
     def update_combobox(self):
-        # Update Form Combobox with formatted names (surname + name + patronymic)
         forms = self.db_manager.tables['form']['instance'].fetch_all_data()
         self.form_combobox['values'] = [f"{form[1]} {form[2]} {form[3]}" for form in forms]
 
@@ -48,13 +43,13 @@ class WorkTaskDisplay(BaseDisplay):
         title = self.title_entry.get().strip()
         start_time = self.start_time_entry.get().strip()
         end_time = self.end_time_entry.get().strip()
-        form_name = self.form_combobox.get().strip()  # Получаем выбранный заголовок формы
+        form_name = self.form_combobox.get().strip()
 
         if title and start_time and end_time and form_name:
             forms = self.db_manager.tables['form']['instance'].fetch_all_data()
             form_id = next((form[0] for form in forms if f"{form[1]} {form[2]} {form[3]}" == form_name), None)
 
-            if form_id is not None:  # Проверяем, что удалось найти ID формы
+            if form_id is not None:
                 try:
                     self.db_table.insert_data((title, start_time, end_time, form_id))
                     self.update_listbox()

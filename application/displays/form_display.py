@@ -14,44 +14,37 @@ class FormDisplay(BaseDisplay):
         self.create_entries()
 
     def create_entries(self):
-        # Staff
         self.staff_label = tk.Label(self.bottom_frame, text="Сотрудник")
         self.staff_label.grid(row=1, column=0, padx=5, pady=5, sticky='w')
         self.staff_combobox = ttk.Combobox(self.bottom_frame, state="readonly", width=37)
         self.staff_combobox.grid(row=2, column=0, columnspan=2, padx=5, pady=5, sticky='w')
 
-        # Worker
         self.worker_label = tk.Label(self.bottom_frame, text="Рабочий")
         self.worker_label.grid(row=3, column=0, padx=5, pady=5, sticky='w')
         self.worker_combobox = ttk.Combobox(self.bottom_frame, state="readonly", width=37)
         self.worker_combobox.grid(row=4, column=0, columnspan=2, padx=5, pady=5, sticky='w')
 
-        # Room Class
         self.class_label = tk.Label(self.bottom_frame, text="Класс")
         self.class_label.grid(row=5, column=0, padx=5, pady=5, sticky='w')
         self.class_combobox = ttk.Combobox(self.bottom_frame, state="readonly", width=37)
         self.class_combobox.grid(row=6, column=0, columnspan=2, padx=5, pady=5, sticky='w')
         self.class_combobox.bind("<<ComboboxSelected>>", self.update_places_combobox)
 
-        # Place
         self.place_label = tk.Label(self.bottom_frame, text="Место")
         self.place_label.grid(row=7, column=0, padx=5, pady=5, sticky='w')
         self.place_combobox = ttk.Combobox(self.bottom_frame, state="readonly", width=37)
         self.place_combobox.grid(row=8, column=0, columnspan=2, padx=5, pady=5, sticky='w')
 
-        # Work Type
         self.work_type_label = tk.Label(self.bottom_frame, text="Тип работы")
         self.work_type_label.grid(row=9, column=0, padx=5, pady=5, sticky='w')
         self.work_type_combobox = ttk.Combobox(self.bottom_frame, state="readonly", width=37)
         self.work_type_combobox.grid(row=10, column=0, columnspan=2, padx=5, pady=5, sticky='w')
 
-        # Work Status
         self.work_status_label = tk.Label(self.bottom_frame, text="Статус работы")
         self.work_status_label.grid(row=11, column=0, padx=5, pady=5, sticky='w')
         self.work_status_combobox = ttk.Combobox(self.bottom_frame, state="readonly", width=37)
         self.work_status_combobox.grid(row=12, column=0, columnspan=2, padx=5, pady=5, sticky='w')
 
-        # Notice
         self.notice_label = tk.Label(self.bottom_frame, text="Примечание")
         self.notice_label.grid(row=13, column=0, padx=5, pady=5, sticky='w')
         self.notice_entry = tk.Entry(self.bottom_frame, width=40)
@@ -60,23 +53,18 @@ class FormDisplay(BaseDisplay):
         self.update_combobox()
 
     def update_combobox(self):
-        # Update Staff Combobox
         staffs = self.db_manager.tables['staff']['instance'].fetch_all_data()
         self.staff_combobox['values'] = [f"{staff[1]} {staff[2]} {staff[3]}" for staff in staffs]
 
-        # Update Worker Combobox
         workers = self.db_manager.tables['worker']['instance'].fetch_all_data()
         self.worker_combobox['values'] = [f"{worker[1]} {worker[2]} {worker[3]}" for worker in workers]
 
-        # Update Room Class Combobox
         room_classes = self.db_manager.tables['room_class']['instance'].fetch_all_data()
         self.class_combobox['values'] = [room_class[1] for room_class in room_classes]
 
-        # Update Work Type Combobox
         work_types = self.db_manager.tables['work_type']['instance'].fetch_all_data()
         self.work_type_combobox['values'] = [work_type[1] for work_type in work_types]
 
-        # Update Work Status Combobox
         work_statuses = self.db_manager.tables['work_status']['instance'].fetch_all_data()
         self.work_status_combobox['values'] = [work_status[1] for work_status in work_statuses]
 
@@ -142,4 +130,3 @@ class FormDisplay(BaseDisplay):
         for row in data:
             display_string = f"{row[0]}: {row[1]} - {row[2]} - {row[3]} - {row[4]} - {row[5]} - {row[6]} - {row[7]}"
             self.listbox.insert(tk.END, display_string)
-
