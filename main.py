@@ -55,12 +55,30 @@ if __name__ == '__main__':
                 'name': 'Заявки',
                 'module': 'application.displays.task_display',
                 'class_name': 'WorkTaskDisplay'
+            },
+
+            'display_7': {
+                'name': 'Аудитории',
+                'module': 'application.displays.room_class_display',
+                'class_name': 'RoomClassDisplay'
+            },
+
+            'display_8': {
+                'name': 'Тип',
+                'module': 'application.displays.work_type_display',
+                'class_name': 'WorkTypeDisplay'
+            },
+
+            'display_9': {
+                'name': 'Статус',
+                'module': 'application.displays.work_status_display',
+                'class_name': 'WorkStatusDisplay'
             }
         }
     }
 
     db_manager = DatabaseManager(config['db_path'], config['tables'])
-    db_manager.create_tables()
+    # db_manager.create_tables()
 
     try:
         app = Application(config['displays'], db_manager)

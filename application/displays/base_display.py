@@ -48,6 +48,10 @@ class BaseDisplay:
     def hide(self):
         self.frame.pack_forget()
 
+    def update_data(self):
+        self.update_listbox()
+        self.update_combobox()
+
     def update_listbox(self):
         self.listbox.delete(0, tk.END)
 

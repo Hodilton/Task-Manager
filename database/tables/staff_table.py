@@ -43,7 +43,7 @@ class StaffTable(BaseTable):
 
     def fetch_all_data(self):
         query = '''
-        SELECT staff.Id, LastName, FirstName, MiddleName, NamePost 
+        SELECT staff.Id, LastName, FirstName, MiddleName, PostName 
         FROM staff 
         JOIN staff_post ON staff.id_staff_post = staff_post.Id
         '''

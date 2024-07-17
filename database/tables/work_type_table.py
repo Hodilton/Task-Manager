@@ -5,15 +5,15 @@ class WorkTypeTable(BaseTable):
         query = '''
         CREATE TABLE IF NOT EXISTS work_type (
             Id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
-            Name_work TEXT (60) UNIQUE NOT NULL,
-            CHECK(LENGTH(Name_work) > 0)
+            TypeName TEXT (60) UNIQUE NOT NULL,
+            CHECK(LENGTH(TypeName) > 0)
         );
         '''
         self.connection.execute(query)
 
     def insert_data(self, data):
         query = '''
-           INSERT INTO work_type (Name_work)
+           INSERT INTO work_type (TypeName)
            VALUES (?)
            '''
         self.connection.execute(query, data)
@@ -22,7 +22,7 @@ class WorkTypeTable(BaseTable):
     def update_data(self, id, data):
         query = '''
            UPDATE work_type
-           SET Name_work = ?
+           SET TypeName = ?
            WHERE Id = ?
            '''
         self.connection.execute(query, (*data, id))
@@ -38,7 +38,7 @@ class WorkTypeTable(BaseTable):
 
     def fetch_all_data(self):
         query = '''
-        SELECT Id, Name_work 
+        SELECT Id, TypeName 
         FROM work_type
         '''
         cursor = self.connection.cursor()

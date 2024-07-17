@@ -35,7 +35,8 @@ class WorkerTable(BaseTable):
 
     def delete_data(self, id):
         query = '''
-         DELETE FROM worker
+         DELETE 
+         FROM worker
          WHERE Id = ?
          '''
         self.connection.execute(query, (id,))
@@ -43,7 +44,7 @@ class WorkerTable(BaseTable):
 
     def fetch_all_data(self):
         query = '''
-               SELECT worker.Id, LastName, FirstName, MiddleName, NamePost 
+               SELECT worker.Id, LastName, FirstName, MiddleName, PostName 
                FROM worker 
                JOIN worker_post ON worker.id_worker_post = worker_post.Id
                '''

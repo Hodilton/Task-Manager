@@ -5,15 +5,15 @@ class WorkStatusTable(BaseTable):
         query = '''
         CREATE TABLE IF NOT EXISTS work_status (
             Id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
-            Name_status TEXT (60) UNIQUE NOT NULL,
-            CHECK(LENGTH(Name_status) > 0)
+            StatusName TEXT (60) UNIQUE NOT NULL,
+            CHECK(LENGTH(StatusName) > 0)
         );
         '''
         self.connection.execute(query)
 
     def insert_data(self, data):
         query = '''
-           INSERT INTO work_status (Name_status)
+           INSERT INTO work_status (StatusName)
            VALUES (?)
            '''
         self.connection.execute(query, data)
@@ -22,7 +22,7 @@ class WorkStatusTable(BaseTable):
     def update_data(self, id, data):
         query = '''
            UPDATE work_status
-           SET Name_status = ?
+           SET StatusName = ?
            WHERE Id = ?
            '''
         self.connection.execute(query, (*data, id))
@@ -30,7 +30,8 @@ class WorkStatusTable(BaseTable):
 
     def delete_data(self, id):
         query = '''
-           DELETE FROM work_status
+           DELETE 
+           FROM work_status
            WHERE Id = ?
            '''
         self.connection.execute(query, (id,))
@@ -38,7 +39,7 @@ class WorkStatusTable(BaseTable):
 
     def fetch_all_data(self):
         query = '''
-        SELECT Id, Name_status 
+        SELECT Id, StatusName 
         FROM work_status
         '''
         cursor = self.connection.cursor()

@@ -18,6 +18,7 @@ class WorkerDisplay(BaseDisplay):
         self.inputs['firstname'] = self.create_label_entry("Имя", 3)
         self.inputs['middlename'] = self.create_label_entry("Отчество", 5)
         self.inputs['workerpost'] = self.create_combobox("Должность", 7)
+        self.update_combobox()
 
     def create_label_entry(self, label_text, row):
         label = tk.Label(self.bottom_frame, text=label_text)
@@ -35,12 +36,11 @@ class WorkerDisplay(BaseDisplay):
         combobox = ttk.Combobox(self.bottom_frame, state="readonly", width=37)
         combobox.grid(row=row+1, column=0, columnspan=2, padx=5, pady=5, sticky='w')
 
-        self.update_combobox(combobox)
         return combobox
 
-    def update_combobox(self, combobox):
+    def update_combobox(self):
         worker_posts = self.db_manager.tables['worker_post']['instance'].fetch_all_data()
-        combobox['values'] = [post[1] for post in worker_posts]
+        self.inputs['workerpost']['values'] = [post[1] for post in worker_posts]
 
     def add_item(self):
         lastname = self.inputs['lastname'].get().strip()

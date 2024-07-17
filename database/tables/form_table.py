@@ -54,8 +54,8 @@ class FormTable(BaseTable):
                       worker.LastName || ' ' || worker.FirstName || ' ' || worker.MiddleName AS WorkerName,
                       room_class.Class AS RoomClass,
                       form.Place AS Place,
-                      work_type.Name_work,
-                      work_status.Name_status,
+                      work_type.TypeName,
+                      work_status.StatusName,
                       form.Notice
                FROM form
                JOIN staff ON form.id_staff = staff.Id

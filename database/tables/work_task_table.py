@@ -1,10 +1,9 @@
-# database/task_table.py
 from .base_table import BaseTable
 
 class WorkTaskTable(BaseTable):
     def create_table(self):
         query = '''
-        CREATE TABLE IF NOT EXISTS task (
+        CREATE TABLE IF NOT EXISTS work_task (
             Id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
             Title TEXT (100) NOT NULL,
             StartTime TEXT NOT NULL,
@@ -18,7 +17,7 @@ class WorkTaskTable(BaseTable):
 
     def insert_data(self, data):
         query = '''
-           INSERT INTO task (Title, StartTime, EndTime, id_form)
+           INSERT INTO work_task (Title, StartTime, EndTime, id_form)
            VALUES (?, ?, ?, ?)
            '''
         self.connection.execute(query, data)
@@ -26,7 +25,7 @@ class WorkTaskTable(BaseTable):
 
     def update_data(self, id, data):
         query = '''
-           UPDATE task
+           UPDATE work_task
            SET Title = ?, StartTime = ?, EndTime = ?, id_form = ?
            WHERE Id = ?
            '''
@@ -35,7 +34,7 @@ class WorkTaskTable(BaseTable):
 
     def delete_data(self, id):
         query = '''
-           DELETE FROM task
+           DELETE FROM work_task
            WHERE Id = ?
            '''
         self.connection.execute(query, (id,))
@@ -43,20 +42,20 @@ class WorkTaskTable(BaseTable):
 
     def fetch_all_data(self):
         query = '''
-               SELECT task.Id,
-                      task.Title,
-                      task.StartTime,
-                      task.EndTime,
+               SELECT work_task.Id,
+                      work_task.Title,
+                      work_task.StartTime,
+                      work_task.EndTime,
                       form.Id AS FormId,
                       staff.LastName || ' ' || staff.FirstName || ' ' || staff.MiddleName AS StaffName,
                       worker.LastName || ' ' || worker.FirstName || ' ' || worker.MiddleName AS WorkerName,
                       room_class.Class AS RoomClass,
                       form.Place AS Place,
-                      work_type.Name_work,
-                      work_status.Name_status,
+                      work_type.TypeName,
+                      work_status.StatusName,
                       form.Notice
-               FROM task
-               JOIN form ON task.id_form = form.Id
+               FROM work_task
+               JOIN form ON work_task.id_form = form.Id
                JOIN staff ON form.id_staff = staff.Id
                JOIN worker ON form.id_worker = worker.Id
                JOIN room_class ON form.id_class = room_class.Id

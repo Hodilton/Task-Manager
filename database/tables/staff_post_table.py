@@ -5,15 +5,15 @@ class StaffPostTable(BaseTable):
         query = '''
         CREATE TABLE IF NOT EXISTS staff_post (
             Id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
-            NamePost TEXT (30) UNIQUE NOT NULL,
-            CHECK(LENGTH(NamePost) > 0)
+            PostName TEXT (30) UNIQUE NOT NULL,
+            CHECK(LENGTH(PostName) > 0)
         );
         '''
         self.connection.execute(query)
 
     def insert_data(self, data):
         query = '''
-        INSERT INTO staff_post (NamePost)
+        INSERT INTO staff_post (PostName)
         VALUES (?)
         '''
         self.connection.execute(query, data)
@@ -22,7 +22,7 @@ class StaffPostTable(BaseTable):
     def update_data(self, id, data):
         query = '''
         UPDATE staff_post
-        SET NamePost = ?
+        SET PostName = ?
         WHERE Id = ?
         '''
         self.connection.execute(query, (*data, id))
@@ -38,7 +38,7 @@ class StaffPostTable(BaseTable):
 
     def fetch_all_data(self):
         query = '''
-           SELECT Id, NamePost FROM staff_post
+           SELECT Id, PostName FROM staff_post
            '''
         cursor = self.connection.cursor()
         cursor.execute(query)
