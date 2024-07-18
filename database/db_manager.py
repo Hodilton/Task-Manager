@@ -50,6 +50,7 @@ class DatabaseManager:
     def close_connection(self):
         self.connection.close()
 
+
     def create_indexes(self):
         indexes = [
             "CREATE INDEX IF NOT EXISTS idx_form_id_staff ON form(id_staff);",
