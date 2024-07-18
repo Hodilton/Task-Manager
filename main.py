@@ -3,7 +3,7 @@ from database.db_manager import DatabaseManager
 
 if __name__ == '__main__':
     config = {
-        'db_path': 'data/my_database3.db',
+        'db_path': 'data/tasks1.db',
 
         'tables': {
             'staff_post': 'database.tables.staff_post_table.StaffPostTable',
@@ -73,6 +73,46 @@ if __name__ == '__main__':
                 'name': 'Статус',
                 'module': 'application.displays.work_status_display',
                 'class_name': 'WorkStatusDisplay'
+            }
+        },
+
+        'displays2': {
+            'display_1': {
+                'name': 'Кнопка 1',
+                'module': 'application.displays.base_display',
+                'class_name': 'BaseDisplay'
+            },
+
+            'display_2': {
+                'name': 'Кнопка 2',
+                'module': 'application.displays.base_display',
+                'class_name': 'BaseDisplay'
+            },
+
+            'display_3': {
+                'name': 'Кнопка 3',
+                'module': 'application.displays.base_display',
+                'class_name': 'BaseDisplay'
+            },
+
+            'display_4': {
+                'name': 'Кнопка 4',
+                'module': 'application.displays.base_display',
+                'class_name': 'BaseDisplay'
+            },
+
+            'display_5': {
+                'name': 'Кнопка 5',
+                'module': 'application.displays.base_display',
+                'class_name': 'BaseDisplay'
+            }
+        },
+
+        'displays1': {
+            'display_1': {
+                'name': 'Сотруднкики - Должности',
+                'module': 'application.displays.staff_post_display',
+                'class_name': 'StaffPostDisplay'
             }
         }
     }
