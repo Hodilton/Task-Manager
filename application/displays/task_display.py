@@ -8,6 +8,8 @@ class WorkTaskDisplay(BaseDisplay):
         self.db_table = db_manager.tables['work_task']['instance']
         super().__init__(parent, db_manager)
 
+        self.form_map = {}
+
     def initialize_display(self):
         super().initialize_display()
         self.create_entries()
@@ -30,24 +32,31 @@ class WorkTaskDisplay(BaseDisplay):
 
         self.form_label = tk.Label(self.bottom_frame, text="Форма")
         self.form_label.grid(row=7, column=0, padx=5, pady=5, sticky='w')
-        self.form_combobox = ttk.Combobox(self.bottom_frame, state="readonly", width=37)
+        self.form_combobox = ttk.Combobox(self.bottom_frame, state="readonly", width=150)
         self.form_combobox.grid(row=8, column=0, columnspan=2, padx=5, pady=5, sticky='w')
 
         self.update_combobox()
 
     def update_combobox(self):
         forms = self.db_manager.tables['form']['instance'].fetch_all_data()
-        self.form_combobox['values'] = [f"{form[1]} {form[2]} {form[3]}" for form in forms]
+
+        self.form_map = {
+            f"{form[1]} {form[2]} {form[3]} - {form[4]} - {form[5]} - {form[6]} - {form[7]}": form[0]
+            for form in forms
+        }
+
+        self.form_combobox['values'] = list(self.form_map.keys())
 
     def add_item(self):
         title = self.title_entry.get().strip()
         start_time = self.start_time_entry.get().strip()
         end_time = self.end_time_entry.get().strip()
-        form_name = self.form_combobox.get().strip()
+        form_value = self.form_combobox.get().strip()
 
-        if title and start_time and end_time and form_name:
-            forms = self.db_manager.tables['form']['instance'].fetch_all_data()
-            form_id = next((form[0] for form in forms if f"{form[1]} {form[2]} {form[3]}" == form_name), None)
+        if title and start_time and end_time and form_value:
+            form_id = self.form_map.get(form_value)
+
+            print(form_id)
 
             if form_id is not None:
                 try:
