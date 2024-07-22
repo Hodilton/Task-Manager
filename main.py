@@ -1,4 +1,5 @@
 from application.app_main import Application
+from database.db_connection import DatabaseConnection
 from database.db_manager import DatabaseManager
 
 if __name__ == '__main__':
@@ -110,17 +111,18 @@ if __name__ == '__main__':
 
         'displays1': {
             'display_1': {
-                'name': 'Сотруднкики - Должности',
+                'name': 'Сотрудники - Должности',
                 'module': 'application.displays.staff_post_display',
                 'class_name': 'StaffPostDisplay'
             }
         }
     }
 
-    db_manager = DatabaseManager(config['db_path'], config['tables'])
-    # db_manager.create_tables()
+    db_connection = DatabaseConnection(config['db_path'])
 
     try:
+        db_manager = DatabaseManager(db_connection, config['tables'])
         app = Application(config['displays'], db_manager)
     finally:
-        db_manager.close_connection()
+        db_connection.close()
+        input()
